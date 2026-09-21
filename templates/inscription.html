@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coris Banque - Inscription</title>
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --surface-dark: #1e1e1e;
+            --surface-input: #2a2a2a;
+            --coris-red: #c8102e;
+            --coris-dark-red: #900a20;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: #333333;
+            --focus-blue: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 16px;
+        }
+
+        /* Conteneur adapté aux écrans mobiles */
+        .register-container {
+            width: 100%;
+            max-width: 440px;
+            background-color: var(--surface-dark);
+            border-radius: 20px;
+            padding: 32px 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        /* En-tête */
+        .header-title {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .header-title h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .header-title p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Formulaire */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--surface-input);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--coris-red);
+            box-shadow: 0 0 0 2px rgba(200, 16, 46, 0.25);
+        }
+
+        .input-group input::placeholder {
+            color: #666666;
+        }
+
+        /* Bouton de soumission */
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--coris-red) 0%, var(--coris-dark-red) 100%);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(200, 16, 46, 0.3);
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        /* Lien bas de page */
+        .switch-action {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .switch-action a {
+            color: var(--coris-red);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        .switch-action a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <div class="header-title">
+            <h2>Créer un Compte</h2>
+            <p>Coris Bank - Espace Numérique</p>
+        </div>
+
+        <form action="/inscription" method="POST">
+            <div class="input-group">
+                <label for="nom">Nom d'utilisateur</label>
+                <input type="text" id="nom" name="nom" placeholder="Choisissez un identifiant" required autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="Créez un mot de passe" required>
+            </div>
+
+            <button type="submit" class="btn-submit">S'inscrire</button>
+        </form>
+
+        <div class="switch-action">
+            Déjà client ? <a href="/connexion">Se connecter</a>
+        </div>
+    </div>
+
+</body>
+</html>
+

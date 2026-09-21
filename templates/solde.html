@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Solde - Coris Bank</title>
+    <style>
+        :root {
+            --coris-red: #c8102e;
+            --coris-dark-red: #8b0000;
+            --coris-gold: #f2a900;
+            --bg-color: #f4f6f9;
+            --text-dark: #1a1a1a;
+            --text-muted: #666666;
+            --card-shadow: 0 12px 28px rgba(200, 16, 46, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--coris-red);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        /* Carte de Solde / Carte Bancaire */
+        .balance-card {
+            background: linear-gradient(135deg, var(--coris-red) 0%, var(--coris-dark-red) 100%);
+            border-radius: 20px;
+            padding: 25px;
+            color: #ffffff;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            aspect-ratio: 1.586 / 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Filigrane décoratif */
+        .balance-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 250px;
+            height: 250px;
+            background: rgba(242, 169, 0, 0.15);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .bank-name {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 1.5px;
+            color: var(--coris-gold);
+        }
+
+        .chip {
+            width: 45px;
+            height: 32px;
+            background: linear-gradient(135deg, #e0aa3e 0%, #f7d070 100%);
+            border-radius: 6px;
+        }
+
+        .card-body {
+            margin: 15px 0;
+            z-index: 1;
+        }
+
+        .balance-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .balance-amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+            word-break: break-all;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 1;
+        }
+
+        .account-type {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--coris-gold);
+        }
+
+        .card-status {
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+
+        /* Bouton Retour */
+        .actions {
+            width: 100%;
+        }
+
+        .btn-back {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background-color: #ffffff;
+            color: var(--coris-red);
+            text-align: center;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 14px;
+            border: 2px solid var(--coris-red);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-back:active {
+            background-color: var(--coris-red);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Titre -->
+        <header>
+            <h1>Votre Solde</h1>
+            <p>Coris Bank - La banque autrement</p>
+        </header>
+
+        <!-- Carte de Solde -->
+        <div class="balance-card">
+            <div class="card-header">
+                <span class="bank-name">CORIS BANK</span>
+                <div class="chip"></div>
+            </div>
+
+            <div class="card-body">
+                <div class="balance-label">Solde disponible</div>
+                <div class="balance-amount">{{ solde }} FCFA</div>
+            </div>
+
+            <div class="card-footer">
+                <span class="account-type">Compte Courant</span>
+                <span class="card-status">Actif</span>
+            </div>
+        </div>
+
+        <!-- Action -->
+        <div class="actions">
+            <a href="/home" class="btn-back">Retour à l'accueil</a>
+        </div>
+    </div>
+
+</body>
+</html>
+

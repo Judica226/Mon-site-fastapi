@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coris Bank - Profil</title>
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --surface-dark: #1e1e1e;
+            --surface-light: #2c2c2c;
+            --coris-red: #c8102e;
+            --coris-dark-red: #8b0000;
+            --coris-gold: #f2a900;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b3b8;
+            --border-color: #333333;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-top: 65px;
+            padding-bottom: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Barre de navigation fixe */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: var(--surface-dark);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .nav-btn:active {
+            background-color: var(--surface-light);
+            color: var(--text-primary);
+        }
+
+        .menu-toggle {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        /* Section Profil Haut */
+        .profile-header {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .avatar-container {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background-color: var(--surface-light);
+            border: 3px solid var(--coris-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .user-badge {
+            font-size: 0.85rem;
+            color: var(--coris-gold);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .btn-edit-profile {
+            margin-top: 16px;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--surface-light);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-edit-profile:active {
+            background-color: var(--border-color);
+        }
+
+        /* Cartes d'information de section */
+        .section-card {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Information Grid */
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Publications zone */
+        .empty-zone {
+            background-color: var(--bg-dark);
+            border: 2px dashed var(--border-color);
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Activités */
+        .activity-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .activity-card {
+            background-color: var(--surface-light);
+            padding: 14px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Statistiques Grille de 3 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .stat-card {
+            background-color: var(--surface-light);
+            border-radius: 14px;
+            padding: 14px 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--coris-red);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        /* Sidebar Overlay et Menu */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 200;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100%;
+            background-color: var(--surface-dark);
+            border-left: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            z-index: 201;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 24px 16px;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--coris-red);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 12px;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar-link:active {
+            background-color: var(--surface-light);
+        }
+
+        .sidebar-link.logout {
+            color: var(--coris-red);
+            margin-top: 20px;
+            border-top: 1px solid var(--border-color);
+            border-radius: 0;
+            padding-top: 18px;
+        }
+
+        .link-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barre de navigation supérieure -->
+    <header class="top-bar">
+        <div class="nav-links">
+            <a href="/home" class="nav-btn" title="Accueil">🏠</a>
+            <a href="/messages" class="nav-btn" title="Messagerie">💬</a>
+            <a href="/users" class="nav-btn" title="Utilisateurs">👥</a>
+        </div>
+        <button class="nav-btn menu-toggle" id="openMenu" title="Menu">☰</button>
+    </header>
+
+    <!-- Conteneur principal -->
+    <div class="app-container">
+
+        <!-- En-tête Profil -->
+        <section class="profile-header">
+            <div class="avatar-container">
+                <!-- Image par défaut via SVG intégré -->
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#b0b3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <h1 class="user-name">{{ nom }}</h1>
+            <span class="user-badge">Membre Coris Bank</span>
+            <button class="btn-edit-profile">Modifier le profil</button>
+        </section>
+
+        <!-- Section Informations -->
+        <section class="section-card">
+            <h2 class="section-title">📋 Informations</h2>
+            <div class="info-list">
+                <div class="info-item">
+                    <span class="info-label">Nom</span>
+                    <span class="info-value">{{ nom }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Solde</span>
+                    <span class="info-value">{{ solde }} FCFA</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Banque</span>
+                    <span class="info-value">Coris Bank</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Statistiques -->
+        <section class="section-card">
+            <h2 class="section-title">📊 Statistiques</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Transactions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Virements</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Publications</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Activité -->
+        <section class="section-card">
+            <h2 class="section-title">⚡ Activité</h2>
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <span>Historique des transactions</span>
+                    <span>❯</span>
+                </div>
+                <div class="activity-card">
+                    <span>Historique des virements</span>
+                    <span>❯</span>
+                </div>
+                <div class="activity-card">
+                    <span>Messages envoyés</span>
+                    <span>❯</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Publications -->
+        <section class="section-card">
+            <h2 class="section-title">📝 Mes publications</h2>
+            <div class="empty-zone">
+                Aucune publication pour le moment
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Overlay pour le menu -->
+    <div class="sidebar-overlay" id="overlay"></div>
+
+    <!-- Menu latéral (Drawer) -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-title">Menu principal</span>
+            <button class="close-btn" id="closeMenu">&times;</button>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="/solde" class="sidebar-link">
+                <span class="link-icon">💰</span>
+                <span>Voir le solde</span>
+            </a>
+            <a href="/profil" class="sidebar-link">
+                <span class="link-icon">👤</span>
+                <span>Profil</span>
+            </a>
+            <a href="/historique" class="sidebar-link">
+                <span class="link-icon">📜</span>
+                <span>Historique</span>
+            </a>
+            <a href="/virement" class="sidebar-link">
+                <span class="link-icon">💸</span>
+                <span>Virement</span>
+            </a>
+            <a href="/deconnexion" class="sidebar-link logout">
+                <span class="link-icon">🚪</span>
+                <span>Déconnexion</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Script JavaScript pour l'ouverture/fermeture du menu latéral -->
+    <script>
+        const openBtn = document.getElementById('openMenu');
+        const closeBtn = document.getElementById('closeMenu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        openBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+    </script>
+
+</body>
+</html>
+
