@@ -5,4 +5,5 @@ jinja2
 bcrypt
 passlib[bcrypt]
 python-multipart
+sqlalchemy
 
